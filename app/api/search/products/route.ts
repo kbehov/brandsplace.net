@@ -1,18 +1,18 @@
 import { getProducts } from '@/services/product.service'
 import type { ProductSearchResponse, SearchProductHit } from '@/types/search.types'
-import type { WooProduct } from '@/types/product.types'
+import type { WooProductListItem } from '@/types/product.types'
 import { NextResponse } from 'next/server'
 
 const MIN_LEN = 2
 const MAX_RESULTS = 8
 
-function toHit(p: WooProduct): SearchProductHit {
+function toHit(p: WooProductListItem): SearchProductHit {
   return {
     id: p.id,
     name: p.name,
     slug: p.slug,
-    price: p.price,
-    regular_price: p.regular_price,
+    price: String(p.price),
+    regular_price: String(p.regular_price),
     on_sale: p.on_sale,
     image: p.images[0]?.src ?? null,
   }

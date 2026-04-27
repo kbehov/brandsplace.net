@@ -19,7 +19,7 @@ const Header = ({ categories }: HeaderProps) => {
   return (
     <header className="w-full border-b border-border/25 bg-background/80 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-border/20 dark:bg-background/88 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.06)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-x-3 gap-y-3 py-3 sm:gap-x-4 md:h-16 md:grid-cols-[auto_minmax(0,1fr)_auto] md:grid-rows-1 md:items-center md:gap-x-8 md:py-0 lg:h-[4.25rem]">
+        <div className="grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-x-3 gap-y-3 py-3 sm:gap-x-4 md:h-16 md:grid-cols-[auto_minmax(0,1fr)_auto] md:grid-rows-1 md:items-center md:gap-x-8 md:py-0 lg:h-17">
           <div className="col-start-1 row-start-1 flex min-w-0 items-center gap-2.5 sm:gap-3 md:col-start-1 md:row-start-1">
             <MobileNav categories={categories} className="md:hidden" />
             <Link

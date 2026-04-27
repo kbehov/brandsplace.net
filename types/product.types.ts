@@ -1,4 +1,4 @@
-// Woocommerce product types // 
+// Woocommerce product types //
 
 // ─── Primitives & Shared ──────────────────────────────────────────────────────
 
@@ -42,6 +42,7 @@ export type WooProductAttribute = {
   position: number
   visible: boolean
   variation: boolean
+  slug: string
   options: string[]
 }
 
@@ -115,6 +116,7 @@ export type WooProduct = {
   downloadable: boolean
   manage_stock: boolean
   stock_quantity: number | null
+  bgn_price: string | number
   stock_status: WooStockStatus
   backorders: WooBackordersStatus
   backorders_allowed: boolean
@@ -172,6 +174,37 @@ export type WooProduct = {
   // Meta
   meta_data: WooProductMetaData[]
 }
+
+/**
+ * Subset of {@link WooProduct} returned for `GET /wc/v3/products` when
+ * `?_fields=` is set (see `lib/woo-product-list-fields.ts` and `getProducts()`).
+ * Single-product endpoints return the full `WooProduct` shape.
+ */
+export type WooProductListItem = Pick<
+  WooProduct,
+  | 'id'
+  | 'name'
+  | 'slug'
+  | 'permalink'
+  | 'type'
+  | 'status'
+  | 'featured'
+  | 'on_sale'
+  | 'purchasable'
+  | 'price'
+  | 'regular_price'
+  | 'sale_price'
+  | 'price_html'
+  | 'images'
+  | 'stock_status'
+  | 'average_rating'
+  | 'rating_count'
+  | 'categories'
+  | 'variations'
+  | 'date_created'
+  | 'attributes'
+  | 'bgn_price'
+>
 
 // ─── Variation (see product-variation.types) ─────────────────────────────────
 

@@ -26,7 +26,7 @@ const DesktopNav = ({ categories }: DesktopNavProps) => {
             {categories.map(category => (
               <li key={category.id} className="flex shrink-0 items-center">
                 <Link
-                  href={`/category/${category.slug}`}
+                  href={`/c/${category.slug}`}
                   className={[
                     linkBase,
                     'px-2.5 py-3 text-[0.8125rem] font-medium tracking-[0.06em] text-muted-foreground sm:px-3.5',

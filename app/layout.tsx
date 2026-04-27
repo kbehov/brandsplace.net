@@ -29,7 +29,6 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const parentCategories = await getParentCategories()
-  console.log(parentCategories)
 
   return (
     <html lang="bg" className={`${geistSans.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
@@ -38,7 +37,7 @@ export default async function RootLayout({
           <TopBar />
           <Header categories={parentCategories.items} />
         </div>
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full lg:container mx-auto">{children}</main>
       </body>
     </html>
   )

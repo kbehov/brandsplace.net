@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios'
 
-import { fromWooData, fromWooListResponse, type WooPaginatedList } from '@/lib/woo-response'
 import woo from '@/lib/woo'
+import { fromWooData, fromWooListResponse, type WooPaginatedList } from '@/lib/woo-response'
 import type { WooProductCategory } from '@/types/product-category.types'
 
 export type GetCategoriesParams = {
@@ -17,18 +17,15 @@ export type GetCategoriesParams = {
   exclude?: string
 }
 
-export async function getCategories(
-  params?: GetCategoriesParams,
-): Promise<WooPaginatedList<WooProductCategory>> {
-  const res = (await woo.get('products/categories', { ...params })) as AxiosResponse<
-    WooProductCategory[]
-  >
-  return fromWooListResponse(res)
+export async function getCategories(params?: GetCategoriesParams): Promise<WooPaginatedList<WooProductCategory>> {
+  const res = await woo.get('products/categories', { ...params })
+
+  return fromWooListResponse(res as AxiosResponse<WooProductCategory[]>)
 }
 
 export async function getCategoryById(id: number): Promise<WooProductCategory> {
-  const res = (await woo.get(`products/categories/${id}`, {})) as AxiosResponse<WooProductCategory>
-  return fromWooData(res)
+  const res = await woo.get(`products/categories/${id}`, {})
+  return fromWooData(res as AxiosResponse<WooProductCategory>)
 }
 
 /**
