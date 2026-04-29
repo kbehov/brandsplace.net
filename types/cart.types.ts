@@ -23,9 +23,9 @@ export type CartItem = {
   quantity: number
   name: string
   slug: string
-  price?: number
-  sale_price?: number
-  regular_price?: number
+  price?: number | string
+  sale_price?: number | string
+  regular_price?: number | string
   on_sale?: boolean
   image: string | null
   attributes: CartAttribute[]

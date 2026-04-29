@@ -3,6 +3,7 @@ import type { WooProductListItem } from '@/types/product.types'
 import { getColorAttribute } from '@/utils/attributes.utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import ProductCardColors from '../common/product-card-colors'
 import { Badge } from '../ui/badge'
 
 type ProductCardProps = {
@@ -106,7 +107,7 @@ const ProductCard = ({ product, imageSizes }: ProductCardProps) => {
           {percentOff !== null && percentOff > 0 && (
             <Badge
               variant="destructive"
-              className="rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] shadow-sm"
+              className="rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest shadow-sm"
             >
               −{percentOff}%
             </Badge>
@@ -130,8 +131,8 @@ const ProductCard = ({ product, imageSizes }: ProductCardProps) => {
         )}
       </div>
 
-      <div className="flex min-w-0 w-full flex-col gap-1.5 px-0.5">
-        <span className="line-clamp-2 min-h-[2.5rem] text-left text-[15px] font-normal leading-snug tracking-[-0.01em] text-foreground transition-colors group-hover:text-foreground/90">
+      <div className="flex min-w-0 w-full flex-col items-center gap-1.5 px-0.5">
+        <span className="line-clamp-2  text-left text-[15px] font-normal leading-snug tracking-[-0.01em] text-foreground transition-colors group-hover:text-foreground/90">
           {name}
         </span>
 
@@ -164,21 +165,7 @@ const ProductCard = ({ product, imageSizes }: ProductCardProps) => {
           )}
         </div>
 
-        {(hasVariations || (colors && colors.length > 0)) && (
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground">
-            {hasVariations && (
-              <span className="rounded-sm bg-muted/80 px-1.5 py-0.5 font-medium text-foreground/80 ring-1 ring-border/50">
-                Варианти
-              </span>
-            )}
-            {colors && colors.length > 0 && (
-              <span className="line-clamp-1">
-                {colors.slice(0, 4).join(' · ')}
-                {colors.length > 4 ? ` · +${colors.length - 4}` : ''}
-              </span>
-            )}
-          </div>
-        )}
+        {(hasVariations || (colors && colors.length > 0)) && <ProductCardColors colors={colors ?? []} />}
       </div>
     </Link>
   )

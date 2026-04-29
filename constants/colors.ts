@@ -1,4 +1,4 @@
-export const COLORS = {
+export const COLORS_VALUES = {
   Бяло: '#FFFFFF',
   Черно: '#000000',
   Сиво: '#808080',

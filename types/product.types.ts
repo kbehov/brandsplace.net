@@ -1,5 +1,7 @@
 // Woocommerce product types //
 
+import { WooBrand } from './brand.types'
+
 // ─── Primitives & Shared ──────────────────────────────────────────────────────
 
 export type WooProductStatus = 'publish' | 'draft' | 'pending' | 'private'
@@ -109,6 +111,7 @@ export type WooProduct = {
   price_html: string
   on_sale: boolean
   purchasable: boolean
+  brands: WooBrand[] | null
 
   // Inventory
   total_sales: number
