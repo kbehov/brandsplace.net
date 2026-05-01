@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "conversion-optimization": {
+      "source": "kostja94/marketing-skills",
+      "sourceType": "github",
+      "skillPath": "skills/strategies/launch/conversion/SKILL.md",
+      "computedHash": "505f9e69601151e9916112b616745365dd6dba0839abf6c7f6685f6943cee929"
+    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

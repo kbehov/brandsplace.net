@@ -40,9 +40,9 @@ const RenderAttributes = ({ attributes, selection, onSelectOption, disabled }: R
                     aria-label={`${attr.name}: ${option}`}
                     onClick={() => onSelectOption(attr.slug, option)}
                     className={cn(
-                      'relative flex size-10 shrink-0 items-center justify-center rounded-full border-2 transition-[transform,box-shadow] motion-safe:active:scale-95',
+                      'relative flex size-10 shrink-0 items-center justify-center rounded-full border-2 transition-[transform,box-shadow] touch-manipulation focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 motion-safe:active:scale-95',
                       selected
-                        ? 'border-foreground shadow-md ring-2 ring-foreground/15 ring-offset-2 ring-offset-background'
+                        ? 'border-foreground ring-2 ring-foreground/15 ring-offset-2 ring-offset-background'
                         : 'border-border hover:border-foreground/40',
                     )}
                     style={hex ? { backgroundColor: hex } : undefined}
