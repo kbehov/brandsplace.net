@@ -10,7 +10,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTi
 const Cart = () => {
   const { items } = useCartStore()
   const isCartEmpty = items.length === 0
-  const count = items.length
+  const count = items.reduce((sum, line) => sum + (line.quantity > 0 ? line.quantity : 0), 0)
 
   return (
     <Sheet>

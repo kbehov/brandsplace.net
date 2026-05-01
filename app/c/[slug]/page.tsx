@@ -25,7 +25,7 @@ const CategoryPage = async ({ params }: { params: Promise<{ slug: string }> }) =
   const products = await getProducts({ category: category?.id.toString() })
 
   return (
-    <div className="w-full px-4 pb-20 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pt-10">
+    <div>
       <Breadcrumb className="mb-8 sm:mb-10">
         <BreadcrumbList className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           <BreadcrumbItem>

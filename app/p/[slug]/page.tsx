@@ -9,6 +9,8 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { getProductBySlug } from '@/services/product.service'
+import { getVariationsByIds } from '@/services/variation.service'
+import type { WooProductVariation } from '@/types/product-variation.types'
 import type { WooProduct } from '@/types/product.types'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -82,17 +84,26 @@ const ProductPage = async ({ params }: Props) => {
     notFound()
   }
 
-  return (
-    <article className="w-full px-4 pb-24 pt-5 sm:px-6 sm:pt-7 lg:px-8 lg:pt-9">
-      <ProductBreadcrumb product={product} />
+  let variations: WooProductVariation[] = []
+  if (product.type === 'variable' && product.variations.length > 0) {
+    const { items } = await getVariationsByIds(product.id, product.variations, {
+      per_page: Math.min(100, Math.max(1, product.variations.length)),
+    })
+    variations = items
+  }
 
-      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-0 xl:gap-x-16">
-        <div className="min-w-0">
+  return (
+    <div>
+      <ProductBreadcrumb product={product} />
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0 xl:gap-x-14">
+        <div className="min-w-0 lg:col-span-7">
           <ProductImages images={product.images ?? []} />
         </div>
-        <ProductInfo product={product} />
+        <div className="min-w-0 lg:col-span-5">
+          <ProductInfo product={product} variations={variations} />
+        </div>
       </div>
-    </article>
+    </div>
   )
 }
 

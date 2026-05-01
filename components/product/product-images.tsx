@@ -1,7 +1,14 @@
 'use client'
 
 import { ImageZoom } from '@/components/animate-ui/primitives/effects/image-zoom'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
 import type { WooImage } from '@/types/product.types'
 import Image from 'next/image'
@@ -71,7 +78,7 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
         <h2 id={carouselLabelId} className="sr-only">
           Снимки на продукта
         </h2>
-        <div className="flex aspect-[3/4] w-full items-center justify-center overflow-hidden rounded-sm bg-muted/80 ring-1 ring-border/40">
+        <div className="flex aspect-3/4 w-full items-center justify-center overflow-hidden rounded-sm bg-muted/80 ring-1 ring-border/40">
           <span className="px-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/80">
             Няма налична снимка
           </span>
@@ -104,11 +111,11 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
                   aria-current={isSelected ? 'true' : undefined}
                   onClick={() => handleThumbnailClick(index)}
                   className={cn(
-                    'group relative aspect-[3/4] w-[4.5rem] shrink-0 snap-start overflow-hidden rounded-sm bg-muted transition-[box-shadow,transform] duration-200 sm:w-20 md:w-24',
+                    'group relative aspect-3/4 w-18 shrink-0 snap-start overflow-hidden rounded-sm bg-muted transition-[box-shadow,transform] duration-200 sm:w-20 md:w-24',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                     isSelected
                       ? 'ring-2 ring-foreground shadow-md ring-offset-2 ring-offset-background md:ring-offset-0'
-                      : 'ring-1 ring-black/[0.08] hover:ring-black/20 dark:ring-border/50 dark:hover:ring-border',
+                      : 'ring-1 ring-black/8 hover:ring-black/20 dark:ring-border/50 dark:hover:ring-border',
                   )}
                 >
                   {isSelected ? (
@@ -144,19 +151,16 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
             loop: hasMultipleImages,
             duration: 22,
           }}
-          className={cn(
-            'group/carousel order-1 min-w-0 md:order-2',
-            hasMultipleImages && 'relative',
-          )}
+          className={cn('group/carousel order-1 min-w-0 md:order-2', hasMultipleImages && 'relative')}
           aria-label="Галерия със снимки на продукта"
         >
-          <CarouselContent className="-ml-0">
+          <CarouselContent className="ml-0">
             {validImages.map((image, index) => {
               const alt = image.alt?.trim() || image.name?.trim() || `Снимка ${index + 1} на продукта`
 
               return (
                 <CarouselItem key={`${image.id}-${image.src}`} className="pl-0">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-muted ring-1 ring-black/[0.06] dark:ring-border/40">
+                  <div className="relative aspect-3/4 w-full overflow-hidden rounded-sm bg-muted ring-1 ring-black/6 dark:ring-border/40">
                     <ImageZoom
                       className="absolute inset-0 size-full rounded-sm"
                       zoomScale={2.25}
@@ -195,7 +199,7 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
               />
 
               {/* Instagram-style bottom gradient + dot pagination */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center bg-gradient-to-t from-black/35 via-black/10 to-transparent pb-3 pt-12 md:pb-3.5">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center bg-linear-to-t from-black/35 via-black/10 to-transparent pb-3 pt-12 md:pb-3.5">
                 <div
                   className="pointer-events-auto flex max-w-[min(100%,280px)] items-center justify-center gap-1.5 px-3"
                   role="group"
