@@ -130,16 +130,10 @@ export function ImageZoom({
       {...props}
     >
       <motion.div
+        className="absolute inset-0"
         animate={{ scale: disabled ? 1 : isZoomed ? zoomScale : 1 }}
         transition={transition}
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          willChange: 'transform',
-        }}
+        style={{ willChange: 'transform' }}
       >
         {children}
       </motion.div>

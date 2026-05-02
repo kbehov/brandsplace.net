@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios'
 
 import { normalizeWooProductPrices } from '@/lib/normalize-woo-product-prices'
+import woo from '@/lib/woo'
 import { WOO_PRODUCT_LIST_REST_FIELDS_CSV } from '@/lib/woo-product-list-fields'
 import { fromWooData, fromWooListResponse, type WooPaginatedList } from '@/lib/woo-response'
-import woo from '@/lib/woo'
 import type { WooProduct, WooProductListItem } from '@/types/product.types'
 
 export type GetProductsParams = {
@@ -23,6 +23,7 @@ export type GetProductsParams = {
   featured?: boolean
   include?: string
   skip?: string
+  status?: 'publish' | 'draft' | 'pending' | 'private'
   /**
    * WordPress global REST param `?_fields=` (comma‑separated property names).
    * Omitted: defaults to a slim set for list/grid (`WOO_PRODUCT_LIST_REST_FIELDS_CSV`).
@@ -31,9 +32,7 @@ export type GetProductsParams = {
   _fields?: string | 'all'
 }
 
-function toProductListQuery(
-  params?: GetProductsParams,
-): Omit<GetProductsParams, '_fields'> & { _fields?: string } {
+function toProductListQuery(params?: GetProductsParams): Omit<GetProductsParams, '_fields'> & { _fields?: string } {
   const p = (params ? { ...params } : {}) as GetProductsParams & { _fields?: string }
   if (p._fields === 'all') {
     const { _fields, ...rest } = p
@@ -49,12 +48,8 @@ function toProductListQuery(
  * List products. Query args are sent as top-level query parameters (WooCommerce REST).
  * By default sends `?_fields=` to drop heavy properties (see `WOO_PRODUCT_LIST_REST_FIELDS_CSV`).
  */
-export async function getProducts(
-  params?: GetProductsParams,
-): Promise<WooPaginatedList<WooProductListItem>> {
-  const res = (await woo.get('products', toProductListQuery(params))) as AxiosResponse<
-    WooProductListItem[]
-  >
+export async function getProducts(params?: GetProductsParams): Promise<WooPaginatedList<WooProductListItem>> {
+  const res = (await woo.get('products', toProductListQuery(params))) as AxiosResponse<WooProductListItem[]>
   const { items, ...rest } = fromWooListResponse(res)
   return { ...rest, items: items.map(normalizeWooProductPrices) }
 }

@@ -22,7 +22,7 @@ const CategoryPage = async ({ params }: { params: Promise<{ slug: string }> }) =
   }
 
   const items = subCategories.items
-  const products = await getProducts({ category: category?.id.toString() })
+  const products = await getProducts({ category: category?.id.toString(), status: 'publish' })
 
   return (
     <div>

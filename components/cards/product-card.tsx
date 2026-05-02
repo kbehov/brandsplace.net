@@ -132,7 +132,7 @@ const ProductCard = ({ product, imageSizes }: ProductCardProps) => {
       </div>
 
       <div className="flex min-w-0 w-full flex-col items-center gap-1.5 px-0.5">
-        <span className="line-clamp-2  text-left text-[15px] font-normal leading-snug tracking-[-0.01em] text-foreground transition-colors group-hover:text-foreground/90">
+        <span className="  text-left text-[15px] font-normal leading-snug tracking-[-0.01em] text-foreground transition-colors group-hover:text-foreground/90 line-clamp-1">
           {name}
         </span>
 

@@ -1,14 +1,14 @@
 import { storeConfig } from '@/config/store.config'
-import type { SearchTrendingCategory } from '@/types/search.types'
 import type { WooCategory } from '@/types/product.types'
-import { Heart, User } from 'lucide-react'
+import type { SearchTrendingCategory } from '@/types/search.types'
+import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 import Cart from './cart'
 import DesktopNav from './desktop-nav'
 import MobileNav from './mobile-nav'
 import SearchBar from './search-bar'
-
+import { UserProfile } from './user-profile'
 type HeaderProps = {
   categories: WooCategory[]
   trendingCategories: SearchTrendingCategory[]
@@ -33,9 +33,9 @@ const Header = ({ categories, trendingCategories }: HeaderProps) => {
           </div>
 
           <div className="col-start-2 row-start-1 flex shrink-0 items-center gap-0.5 sm:gap-1 md:col-start-3 md:row-start-1">
-            <Button variant="ghost" size="icon" className={iconButtonClass} aria-label="Профил">
-              <User className="size-5" strokeWidth={1.5} />
-            </Button>
+            <div className="hidden md:block">
+              <UserProfile iconButtonClass={iconButtonClass} />
+            </div>
             <Button variant="ghost" size="icon" className={iconButtonClass} aria-label="Любими">
               <Heart className="size-5" strokeWidth={1.5} />
             </Button>

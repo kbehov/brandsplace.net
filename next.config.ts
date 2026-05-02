@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'brndsplc.kiki.bg',
       },
+      {
+        protocol: 'https',
+        hostname: 'fhouse.bg',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kiki.bg',
+      },
     ],
   },
 }

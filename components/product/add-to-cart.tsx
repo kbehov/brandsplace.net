@@ -5,7 +5,14 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { buildCartItem } from '@/lib/build-cart-item'
-import { findMatchingVariation, selectionIsComplete, variationAttributeSlugs } from '@/lib/match-product-variation'
+import {
+  findMatchingVariation,
+  resolveAttributeOption,
+  selectionIsComplete,
+  variationAttributeSlugs,
+  variationConsideredPurchasable,
+  variationInventoryAllowsPurchase,
+} from '@/lib/match-product-variation'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/store/cart.store'
 import type { WooProductVariation } from '@/types/product-variation.types'
@@ -23,8 +30,11 @@ function initialSelection(product: WooProduct): Record<string, string> {
     const byName = product.attributes.find(
       a => a.slug === d.name?.trim() || a.name.trim().toLowerCase() === d.name?.trim().toLowerCase(),
     )
-    const slug = byId?.slug ?? byName?.slug
-    if (slug && d.option) sel[slug] = d.option
+    const attr = byId ?? byName
+    const slug = attr?.slug
+    if (slug && d.option) {
+      sel[slug] = resolveAttributeOption(d.option, attr.options ?? [])
+    }
   }
   return sel
 }
@@ -56,10 +66,11 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
   }, [product, variations, selection, isVariable, hasVariationRows])
 
   const variationIsAvailable = matchedVariation
-    ? matchedVariation.purchasable &&
-      (matchedVariation.stock_status !== 'outofstock' || matchedVariation.backorders_allowed)
+    ? variationConsideredPurchasable(matchedVariation, product) &&
+      variationInventoryAllowsPurchase(matchedVariation, product)
     : false
-  const productIsAvailable = product.stock_status !== 'outofstock' || product.backorders_allowed
+  const productIsAvailable =
+    !product.manage_stock || product.stock_status !== 'outofstock' || product.backorders_allowed
   const canSubmitVariable = Boolean(
     isVariable && hasVariationRows && selectionComplete && matchedVariation && variationIsAvailable,
   )
@@ -72,7 +83,10 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
   const displayPrice = matchedVariation?.price ?? product.price
   const displayRegular = matchedVariation?.regular_price ?? product.regular_price
   const displayOnSale = matchedVariation?.on_sale ?? product.on_sale
-  const displayStockStatus = matchedVariation?.stock_status ?? stock_status
+  const displayStockStatus =
+    matchedVariation && !matchedVariation.manage_stock
+      ? stock_status
+      : matchedVariation?.stock_status ?? stock_status
   const percentOff = displayOnSale && displayRegular ? salePercentOff(displayRegular, displayPrice) : null
   const rangePrice = isVariable && !matchedVariation ? vRange : null
   const hasUnavailableSelection = isVariable && selectionComplete && !matchedVariation

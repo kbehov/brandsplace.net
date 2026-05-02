@@ -93,7 +93,13 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
         Снимки на продукта
       </h2>
 
-      <div className="grid gap-3 md:grid-cols-[auto_minmax(0,1fr)] md:gap-5">
+      <div
+        className={cn(
+          'grid gap-3 md:gap-5',
+          // Single image: avoid `auto` + Embla `basis-full` circular min-width — desktop column can collapse to 0.
+          hasMultipleImages ? 'md:grid-cols-[auto_minmax(0,1fr)]' : 'md:grid-cols-1',
+        )}
+      >
         {hasMultipleImages && (
           <div
             className="order-2 flex snap-x snap-mandatory gap-2.5 overflow-x-auto overflow-y-hidden pb-1 [-ms-overflow-style:none] [scrollbar-width:none] md:order-1 md:max-h-[min(76vh,52rem)] md:snap-none md:flex-col md:gap-3 md:overflow-y-auto md:overflow-x-hidden md:pb-0 md:pr-0.5 [&::-webkit-scrollbar]:hidden"
@@ -151,7 +157,10 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
             loop: hasMultipleImages,
             duration: 22,
           }}
-          className={cn('group/carousel order-1 min-w-0 md:order-2', hasMultipleImages && 'relative')}
+          className={cn(
+            'group/carousel order-1 min-w-0 w-full md:order-2',
+            hasMultipleImages && 'relative',
+          )}
           aria-label="Галерия със снимки на продукта"
         >
           <CarouselContent className="ml-0">
@@ -162,23 +171,22 @@ const ProductImages = ({ images, className }: ProductImagesProps) => {
                 <CarouselItem key={`${image.id}-${image.src}`} className="pl-0">
                   <div className="relative aspect-3/4 w-full overflow-hidden rounded-sm bg-muted ring-1 ring-black/6 dark:ring-border/40">
                     <ImageZoom
-                      className="absolute inset-0 size-full rounded-sm"
+                      className="rounded-sm"
+                      style={{ position: 'absolute', inset: 0 }}
                       zoomScale={2.25}
                       zoomOnHover
                       zoomOnClick={false}
                       disabled={disableImageZoom}
                       transition={{ type: 'spring', stiffness: 220, damping: 32 }}
                     >
-                      <div className="relative size-full overflow-hidden rounded-sm">
-                        <Image
-                          src={image.src}
-                          alt={alt}
-                          fill
-                          priority={index === 0}
-                          className="object-cover"
-                          sizes={MAIN_IMAGE_SIZES}
-                        />
-                      </div>
+                      <Image
+                        src={image.src}
+                        alt={alt}
+                        fill
+                        priority={index === 0}
+                        className="object-cover"
+                        sizes={MAIN_IMAGE_SIZES}
+                      />
                     </ImageZoom>
                   </div>
                 </CarouselItem>
