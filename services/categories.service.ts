@@ -1,8 +1,8 @@
-import type { AxiosResponse } from 'axios'
-
 import woo from '@/lib/woo'
 import { fromWooData, fromWooListResponse, type WooPaginatedList } from '@/lib/woo-response'
 import type { WooProductCategory } from '@/types/product-category.types'
+import type { AxiosResponse } from 'axios'
+import { cache } from 'react'
 
 export type GetCategoriesParams = {
   page?: number
@@ -61,3 +61,7 @@ export async function getCategoryBySlugOrId(slugOrId: string | number): Promise<
   }
   return found
 }
+export const categegoriesForSearch = cache(async () => {
+  const categories = await getCategories({ per_page: 8, orderby: 'count', order: 'desc' })
+  return categories.items
+})

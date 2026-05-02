@@ -13,3 +13,12 @@ export type ProductSearchResponse = {
   items: SearchProductHit[]
   total: number
 }
+
+/** Serialized category row for search dropdown (from `categegoriesForSearch`). */
+export type SearchTrendingCategory = {
+  id: number
+  name: string
+  slug: string
+  count: number
+  imageSrc: string | null
+}

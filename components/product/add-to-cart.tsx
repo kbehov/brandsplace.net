@@ -15,7 +15,7 @@ import { stockLabel } from '@/utils/product.utils'
 import { Check, Minus, Plus, ShoppingBag } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
-
+import ProductTrustIndicators from './product-trust-indicators'
 function initialSelection(product: WooProduct): Record<string, string> {
   const sel: Record<string, string> = {}
   for (const d of product.default_attributes) {
@@ -64,9 +64,7 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
     isVariable && hasVariationRows && selectionComplete && matchedVariation && variationIsAvailable,
   )
   const canSubmitSimple = product.type === 'simple' && productIsAvailable
-  const canAdd =
-    product.purchasable &&
-    (canSubmitVariable || canSubmitSimple)
+  const canAdd = product.purchasable && (canSubmitVariable || canSubmitSimple)
 
   const maxQty = product.sold_individually ? 1 : 99
   const effectiveQty = Math.min(quantity, maxQty)
@@ -136,7 +134,11 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
   if (product.type === 'external' && product.external_url) {
     return (
       <div className="space-y-4 border-t border-border/50 pt-6">
-        <Button asChild className="h-12 w-full rounded-sm text-sm font-medium tracking-wide touch-manipulation" size="lg">
+        <Button
+          asChild
+          className="h-12 w-full rounded-sm text-sm font-medium tracking-wide touch-manipulation"
+          size="lg"
+        >
           <a
             href={product.external_url}
             rel="noopener noreferrer"
@@ -171,15 +173,13 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
   }
 
   return (
-    <div className="space-y-6">
-      <Separator />
-
+    <div className="space-y-4 lg:space-y-6">
       {/* ── Pricing block ── */}
       <div className="space-y-4">
         {/* Badges row: sale pill + stock status side-by-side */}
         <div className="flex items-center gap-2">
           {displayOnSale ? (
-            <Badge className="rounded-sm border-red-600 bg-red-600 px-2 py-0.5 text-[11px] font-black uppercase tracking-wide text-white dark:border-red-500 dark:bg-red-500">
+            <Badge className="rounded-xs bg-red-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white ">
               Промоция
             </Badge>
           ) : null}
@@ -195,9 +195,7 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
             <span
               className={cn(
                 'size-1.5 shrink-0 rounded-full',
-                displayStockStatus === 'instock'
-                  ? 'bg-emerald-500 dark:bg-emerald-400'
-                  : 'bg-muted-foreground/50',
+                displayStockStatus === 'instock' ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-muted-foreground/50',
               )}
               aria-hidden
             />
@@ -274,9 +272,9 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
       {isVariable ? <Separator /> : null}
 
       {/* ── Qty stepper + CTA ── */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch">
+      <div className="flex flex-col gap-4  sm:items-stretch">
         {!product.sold_individually ? (
-          <div className="flex h-12 shrink-0 select-none items-stretch rounded-sm border border-border/80 bg-background">
+          <div className="flex h-12 w-full lg:w-fit shrink-0 select-none items-stretch rounded-sm border border-border/80 bg-background">
             <Button
               type="button"
               variant="ghost"
@@ -289,7 +287,7 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
               <Minus className="size-3.5" aria-hidden />
             </Button>
             <div
-              className="flex min-w-14 items-center justify-center border-x border-border/80 text-sm font-medium tabular-nums"
+              className="flex min-w-14 w-full lg:w-fit items-center justify-center border-x border-border/80 text-sm font-medium tabular-nums cursor-pointer"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -300,7 +298,7 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
               type="button"
               variant="ghost"
               size="icon"
-              className="size-12 shrink-0 rounded-none rounded-r-sm touch-manipulation"
+              className="size-12 shrink-0 rounded-none rounded-r-sm touch-manipulation cursor-pointer"
               aria-label="Увеличи количество"
               disabled={effectiveQty >= maxQty}
               onClick={() => setQuantity(q => Math.min(maxQty, q + 1))}
@@ -315,8 +313,8 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
           size="lg"
           disabled={!canAdd}
           onClick={handleAddToCart}
-          className="h-12 flex-1 rounded-sm text-sm font-semibold tracking-[0.12em] uppercase transition-[transform,opacity] touch-manipulation active:scale-[0.99]"
           aria-describedby="add-to-cart-helper"
+          className="cursor-pointer h-14"
         >
           {justAdded ? (
             <>
@@ -331,7 +329,7 @@ const AddToCartSection = ({ product, variations = [] }: AddToCartSectionProps) =
           )}
         </Button>
       </div>
-
+      <ProductTrustIndicators />
       <p id="add-to-cart-helper" className="text-xs leading-5 text-muted-foreground" aria-live="polite">
         {helperText}
       </p>

@@ -1,4 +1,5 @@
 import { storeConfig } from '@/config/store.config'
+import type { SearchTrendingCategory } from '@/types/search.types'
 import type { WooCategory } from '@/types/product.types'
 import { Heart, User } from 'lucide-react'
 import Link from 'next/link'
@@ -10,12 +11,13 @@ import SearchBar from './search-bar'
 
 type HeaderProps = {
   categories: WooCategory[]
+  trendingCategories: SearchTrendingCategory[]
 }
 
 const iconButtonClass =
   'size-9 shrink-0 rounded-full text-foreground/80 transition-colors hover:bg-foreground/[0.04] hover:text-foreground dark:hover:bg-foreground/[0.06]'
 
-const Header = ({ categories }: HeaderProps) => {
+const Header = ({ categories, trendingCategories }: HeaderProps) => {
   return (
     <header className="w-full border-b border-border/25 bg-background/80 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-border/20 dark:bg-background/88 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.06)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -40,7 +42,10 @@ const Header = ({ categories }: HeaderProps) => {
             <Cart />
           </div>
 
-          <SearchBar className="col-span-2 row-start-2 min-w-0 w-full md:col-span-1 md:col-start-2 md:row-start-1 md:max-w-xl md:justify-self-stretch lg:max-w-2xl" />
+          <SearchBar
+            trendingCategories={trendingCategories}
+            className="col-span-2 row-start-2 min-w-0 w-full md:col-span-1 md:col-start-2 md:row-start-1 md:max-w-xl md:justify-self-stretch lg:max-w-2xl"
+          />
         </div>
       </div>
       <DesktopNav categories={categories} />
