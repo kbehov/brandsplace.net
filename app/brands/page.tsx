@@ -3,7 +3,6 @@ import { WooBrand } from '@/types/brand.types'
 
 const BrandsPage = async () => {
   const brands = await getBrands()
-  console.log(brands)
   return <div>{brands.data.map((brand: WooBrand) => brand.name)}</div>
 }
 

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { WooProductCategory } from '@/types/product-category.types'
-import Image from 'next/image'
-
+import { Package } from 'lucide-react'
+import { Badge } from '../ui/badge'
 const TAG_STRIP = /<[^>]*>/g
 const WHITESPACE = /\s+/g
 
@@ -27,43 +27,33 @@ type CategoryHeroProps = {
   className?: string
 }
 
+const DESCRIPTION_PREVIEW_LENGTH = 220
+
 const CategoryHero = ({ category, className }: CategoryHeroProps) => {
-  const { name, description, count, id, image } = category
-  const blurb = textFromDescription(description)
+  const { name, description, count } = category
+  const plain = textFromDescription(description)
+  const blurb =
+    plain.length > DESCRIPTION_PREVIEW_LENGTH ? `${plain.slice(0, DESCRIPTION_PREVIEW_LENGTH).trim()}…` : plain
   const meta = formatSelectionCount(count)
 
   return (
-    <section className={cn('w-full', className)} aria-labelledby={`category-hero-title-${id}`}>
-      {image?.src ? (
-        <div className="relative mb-10 w-full overflow-hidden rounded-sm bg-muted aspect-[2.2/1] max-h-[min(42vw,320px)] sm:aspect-[2.5/1] sm:max-h-[min(38vw,380px)]">
-          <Image
-            src={image.src}
-            alt={image.alt || name}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 1024px"
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent"
-            aria-hidden
-          />
-        </div>
-      ) : null}
-
-      <header className="flex flex-col gap-3 sm:gap-4">
-        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">{meta}</p>
-        <h1
-          id={`category-hero-title-${id}`}
-          className="max-w-4xl text-balance text-3xl font-light tracking-[-0.02em] text-foreground sm:text-4xl md:text-[2.75rem] md:leading-[1.08]"
+    <div className={cn('w-full', className)}>
+      <div className="flex flex-col gap-4 sm:gap-5">
+        <h1 className="max-w-4xl text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">{name}</h1>
+        {/* {blurb ? (
+          <p className="max-w-3xl text-pretty text-[15px] leading-relaxed text-muted-foreground md:text-base">
+            {blurb}
+          </p>
+        ) : null} */}
+        <Badge
+          variant="outline"
+          className="inline-flex w-fit max-w-full items-center gap-2 border-border/60 bg-muted/40 px-3 py-1 text-[13px] font-medium text-foreground"
         >
-          {name}
-        </h1>
-        {blurb ? (
-          <p className="max-w-2xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">{blurb}</p>
-        ) : null}
-      </header>
-    </section>
+          <Package className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
+          <span>{meta}</span>
+        </Badge>
+      </div>
+    </div>
   )
 }
 

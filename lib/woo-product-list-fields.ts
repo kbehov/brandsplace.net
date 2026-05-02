@@ -19,6 +19,7 @@ export const WOO_PRODUCT_LIST_REST_FIELDS = [
   'regular_price',
   'sale_price',
   'price_html',
+  'total_sales',
   'images',
   'stock_status',
   'average_rating',

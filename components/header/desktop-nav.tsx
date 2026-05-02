@@ -53,7 +53,7 @@ const DesktopNav = ({ categories }: DesktopNavProps) => {
                     .join(' ')}
                 >
                   {item.badge ? (
-                    <span className="rounded border border-destructive/20 bg-destructive/[0.08] px-1.5 py-0.5 text-[0.65rem] font-semibold tabular-nums leading-none tracking-tight text-destructive">
+                    <span className="rounded border border-destructive/20 bg-destructive/8 px-1.5 py-0.5 text-[0.65rem] font-semibold tabular-nums leading-none tracking-tight text-destructive">
                       {item.badge}
                     </span>
                   ) : null}

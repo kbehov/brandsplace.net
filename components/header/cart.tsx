@@ -19,10 +19,8 @@ const Cart = () => {
           type="button"
           variant="ghost"
           size="icon"
-          className="group relative size-9 shrink-0 rounded-full text-foreground/80 transition-colors hover:bg-foreground/[0.04] hover:text-foreground dark:hover:bg-foreground/[0.06]"
-          aria-label={
-            count > 0 ? `Отвори кошницата, ${count} ${count === 1 ? 'артикул' : 'артикула'}` : 'Отвори кошницата'
-          }
+          className="group relative size-9 shrink-0 rounded-full text-foreground/80 transition-colors hover:bg-foreground/4 hover:text-foreground "
+          aria-label={count > 0 ? `Отвори Любими, ${count} ${count === 1 ? 'артикул' : 'артикула'}` : 'Отвори Любими'}
         >
           <ShoppingBag
             className="size-5 transition-transform duration-200 group-active:scale-95"

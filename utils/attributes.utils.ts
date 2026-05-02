@@ -9,7 +9,7 @@ export const getColorAttribute = (attributes: WooProductAttribute[]) => {
     attribute => attribute.slug === 'pa_color' || attribute.slug.includes('color') || attribute.slug.includes('цвят'),
   )
   if (!colorAttribute) return null
-  return colorAttribute.options
+  return colorAttribute.options.filter(option => option !== '')
 }
 
 export const getSizeAttribute = (attributes: WooProductAttribute[]) => {

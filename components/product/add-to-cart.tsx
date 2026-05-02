@@ -4,7 +4,7 @@ import RenderAttributes from '@/components/product/render-attributes'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { buildCartItem } from '@/lib/build-cart-item'
+import { buildCartItem } from '@/utils/build-cart-item'
 import {
   findMatchingVariation,
   resolveAttributeOption,
@@ -12,7 +12,7 @@ import {
   variationAttributeSlugs,
   variationConsideredPurchasable,
   variationInventoryAllowsPurchase,
-} from '@/lib/match-product-variation'
+} from '@/utils/match-product-variation'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/store/cart.store'
 import type { WooProductVariation } from '@/types/product-variation.types'

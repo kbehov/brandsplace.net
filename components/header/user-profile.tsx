@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 export const UserProfile = ({ iconButtonClass }: { iconButtonClass: string }) => {
   const { data: session } = authClient.useSession()
-  console.log(session)
   if (!session) {
     return (
       <Button variant="ghost" size="icon" className={iconButtonClass} aria-label="Профил">

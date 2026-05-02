@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios'
 
-import { normalizeWooProductPrices } from '@/lib/normalize-woo-product-prices'
+import { normalizeWooProductPrices } from '@/utils/normalize-woo-product-prices'
 import woo from '@/lib/woo'
 import { WOO_PRODUCT_LIST_REST_FIELDS_CSV } from '@/lib/woo-product-list-fields'
 import { fromWooData, fromWooListResponse, type WooPaginatedList } from '@/lib/woo-response'

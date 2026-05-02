@@ -207,6 +207,7 @@ export type WooProductListItem = Pick<
   | 'date_created'
   | 'attributes'
   | 'bgn_price'
+  | 'total_sales'
 >
 
 // ─── Variation (see product-variation.types) ─────────────────────────────────

@@ -1,14 +1,13 @@
 import { storeConfig } from '@/config/store.config'
 import type { WooCategory } from '@/types/product.types'
 import type { SearchTrendingCategory } from '@/types/search.types'
-import { Heart } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '../ui/button'
 import Cart from './cart'
 import DesktopNav from './desktop-nav'
 import MobileNav from './mobile-nav'
 import SearchBar from './search-bar'
 import { UserProfile } from './user-profile'
+import Wishlist from './wishlist'
 type HeaderProps = {
   categories: WooCategory[]
   trendingCategories: SearchTrendingCategory[]
@@ -36,9 +35,7 @@ const Header = ({ categories, trendingCategories }: HeaderProps) => {
             <div className="hidden md:block">
               <UserProfile iconButtonClass={iconButtonClass} />
             </div>
-            <Button variant="ghost" size="icon" className={iconButtonClass} aria-label="Любими">
-              <Heart className="size-5" strokeWidth={1.5} />
-            </Button>
+            <Wishlist />
             <Cart />
           </div>
 
